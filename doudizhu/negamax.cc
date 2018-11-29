@@ -169,12 +169,7 @@ void Negamax::destroy_tree(TreeNode *node)
 
 void NodeSet::add(TreeNode *node)
 {
-    //lord card + farmer card + last_move + discard turn
     uint64_t key = gen_key(node);
-
-    //replace
-    //pool_[key] = node->score;
-
     auto it = this->pool_.find(key);
 
     if (it == this->pool_.end()) {
@@ -193,7 +188,6 @@ size_t NodeSet::size()
 int8_t NodeSet::get(TreeNode *node)
 {
     uint64_t key = gen_key(node);
-
     auto it = this->pool_.find(key);
 
     if (it == this->pool_.end()) {

@@ -10,17 +10,6 @@
 
 namespace doudizhu_endgame {
 
-void Solution::reset_engine()
-{
-    delete engine_;
-    engine_ = new Negamax;
-}
-
-void Solution::set_time_out()
-{
-    //
-}
-
 #define CLI
 //
 //输入不带空格，'10'用'0'（零）代替
@@ -141,5 +130,17 @@ std::string Solution::input_stdin(const char *prompt)
 
     return string;
 }
+
+void Solution::reset_engine()
+{
+    delete engine_;
+    engine_ = new Negamax;
+}
+
+void Solution::set_time_out()
+{
+    //
+}
+
 
 } //namespace doudizhu_endgame

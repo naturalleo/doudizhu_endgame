@@ -2,8 +2,8 @@
 // Created by deng on 18-11-28.
 //
 
-#ifndef DOUDIZHU_ENDGAME_CARD_SET_H
-#define DOUDIZHU_ENDGAME_CARD_SET_H
+#ifndef DOUDIZHU_ENDGAME_CARDSET_H
+#define DOUDIZHU_ENDGAME_CARDSET_H
 
 #include <vector>
 #include <bitset>
@@ -157,4 +157,4 @@ private:
 
 }   //namespace doudizhu_endgame
 
-#endif //DOUDIZHU_ENDGAME_CARD_SET_H
+#endif //DOUDIZHU_ENDGAME_CARDSET_H

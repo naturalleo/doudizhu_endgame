@@ -7,7 +7,7 @@
 
 #include <unordered_map>
 
-#include "card_set.h"
+#include "cardset.h"
 
 namespace doudizhu_endgame {
 

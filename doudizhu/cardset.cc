@@ -4,10 +4,11 @@
 
 #include <map>
 
-#include "card_set.h"
+#include "cardset.h"
 
 namespace doudizhu_endgame {
 
+//card to val map
 static const std::map<char, int8_t> val_map = {
         {'3',  0},
         {'4',  1},
@@ -28,6 +29,7 @@ static const std::map<char, int8_t> val_map = {
         {'P',  15}
 };
 
+//val to string
 static const std::string str_map[16]{"3 ", "4 ", "5 ", "6 ", "7 ",
                                  "8 ", "9 ", "10 ", "J ", "Q ",
                                  "K ", "A ", "2 ", "小王 ", "大王 ",
