@@ -131,27 +131,25 @@ TreeNode *Negamax::search(const CardSet &lord, const CardSet &farmer, Pattern* l
 
 void Negamax::pruning_tree(TreeNode *node)
 {
-    if (node->turn == 0 && node->score == 1) {
-        auto it = node->child.begin();
-        while (it != node->child.end() && (*it)->score != -1) {
-            destroy_tree(*it);
-            it = node->child.erase(it);
+    if (node->turn == 0) {
+        while (!node->child.empty() && node->child.back()->score != -1) {
+            destroy_tree(node->child.back());
+            node->child.pop_back();
         }
 
-        if (it != node->child.end()) {
-            pruning_tree(*it);
-            it++;
-        }
+        if (!node->child.empty()) {
+            std::swap(node->child.front(), node->child.back());
+            while (node->child.size() > 1) {
+                destroy_tree(node->child.back());
+                node->child.pop_back();
+            }
 
-        while (it != node->child.end() && (*it)->score != -1) {
-            destroy_tree(*it);
-            it = node->child.erase(it);
+        } else {
+            //no child's score is -1
         }
 
     } else {
-        for (auto child : node->child) {
-            pruning_tree(child);
-        }
+        //not pruning
     }
 }
 
