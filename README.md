@@ -6,15 +6,16 @@
 
 ```C++
 #include <iostream>
+
 #include "solution.h"
 
 int main()
 {
-    namespace ddz = doudizhu_endgame;
-    
-    ddz::Solution solution;
+    using doudizhu_endgame::Solution;
+
+    Solution solution;
     solution.start();
-    
+
     return 0;
 }
 ```
@@ -93,7 +94,7 @@ int negamax(int depth)
 
 ```c++
 struct TreeNode {
-    int8_t                   turn;        //0: lord 1:farmer
+    int8_t                   turn;        //0: 地主 1:农民
     int8_t                   score;       //评估值（对当前行动方）
     CardSet                  lord;        //地主手牌
     CardSet                  farmer;      //农民手牌
@@ -131,7 +132,7 @@ CPU:Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz
 lord:  "zaqqjj0999844"
 farmer:"y22aa0886633"
 ```
-上图是欢乐斗地主专家难度第五十关的valgrind massif 的测试结果。目前测试的五十关中都可以在两秒内得到结果，且占用内存少。
+上图是微信小程序欢乐斗地主专家难度第五十关的valgrind massif 的测试结果。目前测试的五十关中都可以在两秒内得到结果，且占用内存少(<500M)。
 
 ## 其他
 
