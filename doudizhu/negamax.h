@@ -13,6 +13,8 @@
 
 namespace doudizhu_endgame {
 
+#define TRANSPOSITION_TABLE_INIT_SIZE 3000000
+
 struct TreeNode {
     int8_t                   turn;       //0: lord 1:farmer
     int8_t                   score;
@@ -22,26 +24,29 @@ struct TreeNode {
     std::vector<TreeNode *>  child;
 };
 
-class NodeSet {
+class TranspositionTable {
 public:
 
-    NodeSet() = default;
-    ~NodeSet() = default;
+    TranspositionTable()
+    {
+        table_.reserve(TRANSPOSITION_TABLE_INIT_SIZE);
+    }
+
+    ~TranspositionTable() = default;
 
     size_t size();
     void add(TreeNode *node);
 
-    //return node from pool, if not in map return 0
+    //return score from table, if not in table return 0
     int8_t get(TreeNode *node);
 
 private:
 
-    std::unordered_map<uint64_t, int8_t> pool_;
+    std::unordered_map<uint64_t, int8_t> table_;
     uint64_t gen_key(TreeNode* node);
 };
 
 class Negamax {
-
 public:
 
     Negamax();
@@ -63,9 +68,9 @@ public:
 
 private:
 
-    TreeNode       *tree_;
-    NodeSet         node_pool_;
-    DouDiZhuHand    doudizhu_;
+    TreeNode           *tree_;
+    TranspositionTable  table_;
+    DouDiZhuHand        doudizhu_;
 
     size_t nodes_searched_{};
     size_t hash_hit_{};

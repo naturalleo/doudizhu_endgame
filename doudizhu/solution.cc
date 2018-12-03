@@ -18,10 +18,15 @@ namespace doudizhu_endgame {
 //
 void Solution::start()
 {
+    std::cout<<"输入不带空格,'10'用'0'（零）代替"<<"\n";
+    std::cout<<"如：[大王 小王 2 A 10 9 9 9 4]"<<"\n";
+    std::cout<<"输入：zy2a09994"<<"\n";
+    std::cout<<"------------------------------"<<"\n";
 
 #ifdef CLI
-    std::string l = input_stdin("input lord hand:");
-    std::string f = input_stdin("input farmer hand:");
+    std::string l = input_stdin("输入手牌:");
+    std::string f = input_stdin("输入对手手牌:");
+    std::cout<<"------------------------------"<<"\n";
 #else
     std::string l{"zaqqjj0999844"};
     std::string f{"y22aa0886633"};
@@ -42,7 +47,7 @@ void Solution::start()
     std::cout << "transposition table hit rate: " << engine_->hash_hit_rate() << "%\n\n";
 
     if (root->score == 1 && !root->child.empty()) {
-        std::cout <<"first hand:["
+        std::cout <<"出:["
                   << root->child[0]->last_move->hand.str() << "]\n";
 
 #ifdef CLI
@@ -50,7 +55,7 @@ void Solution::start()
 #endif //CLI
 
     } else {
-        std::cout << "can not win" << "\n";
+        std::cout << "没有必胜策略" << "\n";
     }
 }
 
@@ -61,14 +66,15 @@ void Solution::process_result(TreeNode *node)
     bool search = true;
     while (!node->child.empty() && search) {
         CardSet hand;
-        hand.from_string(input_stdin("input farmer play:"));
+        hand.from_string(input_stdin("输入对方出牌:"));
 
         for (auto child : node->child) {
             if (child->last_move->hand == hand) {
                 last = child->last_move;
                 if (!child->child.empty()) {
                     node = child->child[0];
-                    std::cout<< "play: ["<< node->last_move->hand.str() <<"]\n";
+                    std::cout<<"------------------------------"<<"\n";
+                    std::cout<< "出: ["<< node->last_move->hand.str() <<"]\n";
                     std::cout<<"currt loard hand: ["<<node->lord.str()<<"]\n";
                     std::cout<<"currt farmer hand:["<<node->farmer.str()<<"]\n";
 
@@ -102,11 +108,11 @@ void Solution::research(TreeNode *node, Pattern *last)
     TreeNode* re = engine_->search(lord, farmer, &last_);
 
     if (!re->child.empty()) {
-        std::cout<< "play: ["<< re->child[0]->last_move->hand.str() << "]\n";
+        std::cout<< "出: ["<< re->child[0]->last_move->hand.str() << "]\n";
         process_result(re->child[0]);
 
     } else {
-        std::cout<<"can not win"<<"\n";
+        std::cout<<"没有必胜策略"<<"\n";
     }
 }
 
@@ -141,6 +147,5 @@ void Solution::set_time_out()
 {
     //
 }
-
 
 } //namespace doudizhu_endgame

@@ -11,6 +11,7 @@ namespace doudizhu_endgame {
 
 class Solution {
 public:
+
     Solution() : engine_(new Negamax) {}
     ~Solution() { delete engine_; }
 
@@ -18,6 +19,7 @@ public:
     void start();
 
 private:
+
     Negamax* engine_;
 
     void process_result(TreeNode* node);

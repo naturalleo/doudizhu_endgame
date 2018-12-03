@@ -4,9 +4,9 @@
 
 int main()
 {
-    namespace ddz = doudizhu_endgame;
+    using doudizhu_endgame::Solution;
 
-    ddz::Solution solution;
+    Solution solution;
     solution.start();
 
     return 0;

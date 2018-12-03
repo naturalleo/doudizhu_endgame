@@ -45,6 +45,7 @@ public:
     Pattern *get(int8_t power, Type type, const CardSet &hand);
 
 private:
+
     std::unordered_map<uint64_t , Pattern *> pool_;
 };
 
@@ -56,32 +57,13 @@ public:
 
     ~DouDiZhuHand() = default;
 
-    void set_hand(const CardSet& hand)
-    {
-        hand_ = hand;
-    }
+    void play(const CardSet& hand, Pattern* toplay, CardSet &res);
 
-    void set_last(const Pattern* last)
-    {
-        last_ = last;
-    }
-
-    void set_play_hand(const CardSet& toplay)
-    {
-        play_hand_ = toplay;
-    }
-
-    //
-    void play(CardSet &res);
-
-    void next_hand(std::vector<Pattern *> &next_moves);
+    void next_hand(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
 private:
 
-    CardSet             hand_;
-    CardSet             play_hand_;
-    const Pattern*      last_{};
-    PatternPool         pattern_pool_;
+    PatternPool pattern_pool_;
 
     void combination(CardSet hand, CardSet used, size_t comb_len, int8_t size,
                      std::vector<std::vector<int8_t>> &combinations);
@@ -89,35 +71,35 @@ private:
     void create_straight(const CardSet &hand, int8_t min_len, int8_t size,
                          std::vector<std::vector<int8_t >> &straights);
 
-    void get_rocket(std::vector<Pattern *> &next_moves);
+    void get_rocket(const CardSet& hand, std::vector<Pattern *> &next_moves);
 
-    void get_pass(std::vector<Pattern *> &next_moves);
+    void get_pass(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_single(std::vector<Pattern *> &next_moves);
+    void get_single(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_pair(std::vector<Pattern *> &next_moves);
+    void get_pair(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_triple(std::vector<Pattern *> &next_moves);
+    void get_triple(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_triple_single(std::vector<Pattern *> &next_moves);
+    void get_triple_single(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_triple_pair(std::vector<Pattern *> &next_moves);
+    void get_triple_pair(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_bomb(std::vector<Pattern *> &next_moves);
+    void get_bomb(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_bomb_single(std::vector<Pattern *> &next_moves);
+    void get_bomb_single(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_bomb_pair(std::vector<Pattern *> &next_moves);
+    void get_bomb_pair(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_straight_single(std::vector<Pattern *> &next_moves);
+    void get_straight_single(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_straight_pair(std::vector<Pattern *> &next_moves);
+    void get_straight_pair(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_plane(std::vector<Pattern *> &next_moves);
+    void get_plane(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_plane_single(std::vector<Pattern *> &next_moves);
+    void get_plane_single(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 
-    void get_plane_pair(std::vector<Pattern *> &next_moves);
+    void get_plane_pair(const CardSet& hand, Pattern* last, std::vector<Pattern *> &next_moves);
 };
 
 }   //namespace doudizhu_endgame
