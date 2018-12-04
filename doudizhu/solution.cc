@@ -42,20 +42,20 @@ void Solution::start()
     steady_clock::time_point end = steady_clock::now();
 
     duration<double> time_span = duration_cast<duration<double>>(end - start);
-    std::cout << "nodes searched: " << engine_->nodes_searched() << "\n";
-    std::cout << "search time: " << time_span.count() << " seconds.\n";
-    std::cout << "transposition table hit rate: " << engine_->hash_hit_rate() << "%\n\n";
+    std::cout << GREEN << "nodes calculated: " << RESET << engine_->nodes_searched() << "\n";
+    std::cout << GREEN << "search time: " << RESET << time_span.count() << GREEN<< " seconds.\n";
+    std::cout << GREEN << "transposition table hit rate: " << RESET << engine_->hash_hit_rate() << "%\n\n";
 
     if (root->score == 1 && !root->child.empty()) {
-        std::cout <<"出:["
-                  << root->child[0]->last_move->hand.str() << "]\n";
+        std::cout << BOLDGREEN <<"出:["
+                  << root->child[0]->last_move->hand.str() << "]" << RESET <<"\n";
 
 #ifdef CLI
         process_result(root->child[0]);
 #endif //CLI
 
     } else {
-        std::cout << "没有必胜策略" << "\n";
+        std::cout << RED << "无法取胜" << RESET << "\n";
     }
 }
 
@@ -74,7 +74,7 @@ void Solution::process_result(TreeNode *node)
                 if (!child->child.empty()) {
                     node = child->child[0];
                     std::cout<<"------------------------------"<<"\n";
-                    std::cout<< "出: ["<< node->last_move->hand.str() <<"]\n";
+                    std::cout<< BOLDGREEN << "出: ["<< node->last_move->hand.str() <<"]" << RESET << "\n";
                     std::cout<<"currt loard hand: ["<<node->lord.str()<<"]\n";
                     std::cout<<"currt farmer hand:["<<node->farmer.str()<<"]\n";
 
@@ -89,20 +89,20 @@ void Solution::process_result(TreeNode *node)
     }
 
     if (!node->lord.empty() && last != nullptr) {
-        research(node, last);
+        restart_search(node, last);
 
     } else {
         //finsh process
     }
 }
 
-void Solution::research(TreeNode *node, Pattern *last)
+void Solution::restart_search(TreeNode *node, Pattern *last)
 {
     CardSet lord = node->lord;
     CardSet farmer = node->farmer;
     farmer.remove(last->hand);
     Pattern last_{last->power, last->type, last->hand};
-    std::cout << "re searching..."<<"\n";
+    std::cout << "restar search..."<<"\n";
 
     reset_engine();
     TreeNode* re = engine_->search(lord, farmer, &last_);
@@ -112,7 +112,7 @@ void Solution::research(TreeNode *node, Pattern *last)
         process_result(re->child[0]);
 
     } else {
-        std::cout<<"没有必胜策略"<<"\n";
+        std::cout<<"无法取胜"<<"\n";
     }
 }
 
