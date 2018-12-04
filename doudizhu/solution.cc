@@ -102,7 +102,7 @@ void Solution::restart_search(TreeNode *node, Pattern *last)
     CardSet farmer = node->farmer;
     farmer.remove(last->hand);
     Pattern last_{last->power, last->type, last->hand};
-    std::cout << "restar search..."<<"\n";
+    std::cout << "restart search..."<<"\n";
 
     reset_engine();
     TreeNode* re = engine_->search(lord, farmer, &last_);
